@@ -19,6 +19,7 @@ import argparse
 import torch
 import time
 import os
+import tqdm
 
 def sparse_tuple_for_ctc(T_length, lengths):
     input_lengths = []
@@ -144,7 +145,7 @@ def train():
     else:
         start_iter = 0
 
-    for iteration in range(start_iter, max_iter):
+    for iteration in tqdm.tqdm(range(start_iter, max_iter)):
         if iteration % epoch_size == 0:
             # create batch iterator
             batch_iterator = iter(DataLoader(train_dataset, args.train_batch_size, shuffle=True, num_workers=args.num_workers, collate_fn=collate_fn))
@@ -211,7 +212,7 @@ def Greedy_Decode_Eval(Net, datasets, args):
     Tn_1 = 0
     Tn_2 = 0
     t1 = time.time()
-    for i in range(epoch_size):
+    for i in tqdm.tqdm(range(epoch_size)):
         # load train data
         images, labels, lengths = next(batch_iterator)
         start = 0
