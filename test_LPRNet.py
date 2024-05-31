@@ -48,7 +48,7 @@ def collate_fn(batch):
         imgs.append(torch.from_numpy(img))
         labels.extend(label)
         lengths.append(length)
-    labels = np.asarray(labels).flatten().astype(float32)
+    labels = np.asarray(labels).flatten().astype(np.float32)
 
     return (torch.stack(imgs, 0), torch.from_numpy(labels), lengths)
 
